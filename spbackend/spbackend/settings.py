@@ -12,15 +12,18 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 
+from decouple import config
+
+import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-kc#z(6h_u$+@s2)e$_&f+h!h63ls+hll$&2*044fjv)f29&^bs'
+SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -56,7 +59,7 @@ ROOT_URLCONF = 'spbackend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,11 +81,11 @@ WSGI_APPLICATION = 'spbackend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'spdb',
-        'USER': 'sparky',
-        'PASSWORD': 'th1s1s4str0nGP4ass<3',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': config("POSTGRES_NAME"),
+        'USER': config("POSTGRES_USER"),
+        'PASSWORD': config("POSTGRES_PASSWORD"),
+        'HOST': config("POSTGRES_HOST"),
+        'PORT': config("POSTGRES_PORT"),
     }
 }
 
